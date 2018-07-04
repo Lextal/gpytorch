@@ -18,8 +18,7 @@ from gpytorch.random_variables import GaussianRandomVariable
 
 
 train_x = Variable(torch.linspace(0, 1, 10))
-train_y = Variable(torch.sign(torch.cos(train_x.data * (8 * pi))))
-
+train_y = Variable(torch.sign(torch.cos(train_x.data * (16 * pi))))
 
 class GPClassificationModel(gpytorch.models.GridInducingVariationalGP):
     def __init__(self):
@@ -52,7 +51,7 @@ class TestKISSGPClassification(unittest.TestCase):
         model.train()
         likelihood.train()
 
-        optimizer = optim.SGD(model.parameters(), lr=0.1)
+        optimizer = optim.Adam(model.parameters(), lr=0.1)
         optimizer.n_iter = 0
         for _ in range(200):
             optimizer.zero_grad()
